@@ -20,19 +20,21 @@ const CountdownTimer = ({ play, setPlay, remaining }) => (
   </div>
 );
 
-const useScreenOrientation = () => {
-  const [orientation, setOrientation] = useState(window.screen.orientation.type);
-  useEffect(() => {
-    function updateOrientation() {
-      setOrientation(window.screen.orientation.type);
+const isApple = /iPad|iPhone|iPod/.test(navigator.userAgent);
+function useWindowSize() {
+  const [size, setSize] = useState([0, 0]);
+  useLayoutEffect(() => {
+    function updateSize() {
+      const width = isApple ? screen.width : window.innerWidth;
+      const height = isApple ? screen.height : window.innerHeight;
+      setSize([width, height]);
     }
-    window.addEventListener('orientationchange', updateOrientation);
-    return () => {
-      window.removeEventListener('orientationchange', updateOrientation);
-    };
+    window.addEventListener('resize', updateSize);
+    updateSize();
+    return () => window.removeEventListener('resize', updateSize);
   }, []);
-  return orientation;
-};
+  return size;
+}
 
 export function TimerPlayer({ setPage, timers, activeTimerIndex }) {
   const activeTimer = timers[activeTimerIndex];
@@ -40,11 +42,11 @@ export function TimerPlayer({ setPage, timers, activeTimerIndex }) {
   const [activeIntervalIndex, setActiveIntervalIndex] = useState(0);
   const [remaining, setRemaining] = useState(activeTimer.intervals[0].duration || 0);
   const [playSound] = useSound(beep);
-  const orientation = useScreenOrientation();
+  const [width, height] = useWindowSize();
 
   const activeInterval = activeTimer.intervals[activeIntervalIndex];
   const nextInterval = activeTimer.intervals[activeIntervalIndex + 1];
-  const isHorizontal = orientation === 'landscape-primary';
+  const isHorizontal = width > height;
 
   useEffect(() => {
     let timer;
