@@ -1,5 +1,6 @@
 {
   "name": "timer51",
+  "id": "/",
   "short_name": "timer51",
   "icons": [
     {
@@ -19,6 +20,26 @@
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
+    },
+    {
+      "src": "logo-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot1.png",
+      "type": "image/png",
+      "sizes": "915x412",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshot2.png",
+      "type": "image/png",
+      "sizes": "412x915",
+      "form_factor": "narrow"
     }
   ],
   "description": "Interval timer",
