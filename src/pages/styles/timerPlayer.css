@@ -1,0 +1,102 @@
+.timer-player-container {
+  width: 100%;
+  height: 100%;
+}
+
+.timer-player-container .top-bar {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #344240;
+}
+
+.timer-player-container .top-bar > .MuiButtonBase-root {
+  float: left;
+  padding-top: 5px;
+}
+
+.timer-player-container .top-bar > .MuiButtonBase-root > .MuiSvgIcon-root {
+  font-size: 32px;
+}
+
+.timer-player-container .top-bar > .MuiTypography-root {
+  text-align: center;
+  font-size: 26px;
+}
+
+.timer-player-container .top-bar > .MuiTypography-root > .MuiButtonBase-root {
+  margin-left: 10px;
+}
+
+.timer-player-container .top-bar > .MuiTypography-root > .MuiButtonBase-root > .MuiSvgIcon-root {
+  font-size: 26px;
+}
+
+.timer-player-container .content {
+  width: 90%;
+  height: 82%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.timer-player-container .content .time-counter > .MuiTypography-root {
+  text-align: center;
+  font-size: 22vw;
+  line-height: 1;
+}
+
+.timer-player-container .content .interval-names-and-controls {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  flex-wrap: nowrap;
+  position: relative;
+}
+
+.timer-player-container .content .inc-horizontal {
+  flex-direction: row;
+  justify-content: center;
+}
+
+.timer-player-container .content .inc-vertical {
+  flex-direction: column;
+  justify-content: space-around;
+  height: 80%;
+}
+
+.timer-player-container .content .interval-names-and-controls > .MuiTypography-root:first-child > .interval-counter {
+  position: absolute;
+  top: -25px;
+}
+
+.timer-player-container .content .interval-names-and-controls > .MuiTypography-root:first-child {
+  font-weight: bold;
+}
+
+.timer-player-container .content .interval-names-and-controls > .MuiTypography-root,
+.timer-player-container .content .interval-names-and-controls > div {
+  flex: 1 1 0;
+}
+
+.timer-player-container .content .interval-names-and-controls > .interval-horizontal {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.timer-player-container .content .interval-names-and-controls > div > .MuiButtonBase-root > .MuiSvgIcon-root {
+  font-size: 46px;
+}
+
+.timer-player-container
+  .content
+  .interval-names-and-controls
+  > div
+  > .MuiButtonBase-root:nth-child(2)
+  > .MuiSvgIcon-root {
+  font-size: 64px;
+}

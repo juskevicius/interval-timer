@@ -1,0 +1,17 @@
+.welcome-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 50px;
+  height: 90%;
+}
+
+.welcome-container .MuiTypography-root {
+  text-align: center;
+}
+
+.welcome-container .MuiButtonBase-root {
+  width: 70%;
+  padding: 15px 0;
+}

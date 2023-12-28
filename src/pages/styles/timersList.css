@@ -1,0 +1,65 @@
+.timers-list-container {
+  width: 90%;
+  margin: auto;
+  padding-bottom: 20px;
+}
+
+.timers-list-container .MuiPaper-root {
+  margin: 20px 0;
+  padding: 5px 15px;
+  border-radius: 1;
+  box-shadow: 1px 1px 4px #344240;
+}
+
+.timers-list-container .MuiCardContent-root {
+  border-bottom: 1px solid #1a1e21;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.timers-list-container .MuiCardContent-root > .MuiTypography-root {
+  font-size: 26px;
+}
+
+.timers-list-container .MuiCardContent-root > .MuiButtonBase-root {
+  margin-left: auto;
+}
+
+.timers-list-container .MuiCardContent-root > .MuiButtonBase-root > .MuiSvgIcon-root {
+  font-size: 42px;
+}
+
+.timers-list-container .MuiCardActions-root {
+  justify-content: flex-end;
+}
+
+.timers-list-container .MuiCardActions-root > .MuiTypography-root {
+  margin-right: auto;
+  margin-left: 15px;
+  font-size: 18px;
+}
+
+.timers-list-container .MuiCardActions-root > span {
+  padding: 0 10px;
+}
+
+.timers-list-container .MuiCardActions-root > .MuiButtonBase-root {
+  margin-right: 10px;
+}
+
+.timers-list-container .add-new-timer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.timers-list-container .add-new-timer > .MuiButtonBase-root {
+  background-color: #1a1e21;
+  border: 8px solid #1a1e21;
+}
+
+.timers-list-container .add-new-timer > .MuiButtonBase-root > .MuiSvgIcon-root {
+  font-size: 46px;
+}

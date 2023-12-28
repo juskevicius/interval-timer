@@ -1,0 +1,69 @@
+.timer-editor-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 50px;
+  margin: 20px 5%;
+}
+
+.timer-editor-container .workout-name {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.timer-editor-container .workout-name > .MuiButtonBase-root:first-child > .MuiSvgIcon-root {
+  font-size: 38px;
+}
+
+.timer-editor-container .workout-name > .MuiInputBase-root {
+  width: 100%;
+  font-size: 26px;
+  margin-right: 20px;
+  margin-left: 5px;
+}
+
+.timer-editor-container .workout-name > .MuiButtonBase-root:last-child {
+  width: 90px;
+}
+
+.timer-editor-container .workout-name > .MuiButtonBase-root:last-child > .MuiSvgIcon-root {
+  font-size: 46px;
+}
+
+.timer-editor-container .interval {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.timer-editor-container .interval > .MuiInputBase-root {
+  font-size: 22px;
+  width: 100%;
+  margin-right: 20px;
+  margin-left: 6px;
+}
+
+.timer-editor-container .interval > .MuiFormControl-root {
+  min-width: 90px;
+  width: 90px;
+  margin-left: auto;
+}
+
+.timer-editor-container .interval > .MuiFormControl-root > .MuiInputBase-root {
+  font-size: 1.4rem;
+}
+
+.timer-editor-container .bottom-controls {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  column-gap: 8%;
+  align-items: center;
+  padding-bottom: 30px;
+}
+
+.timer-editor-container .bottom-controls > .MuiButtonBase-root > .MuiSvgIcon-root {
+  font-size: 46px;
+}
