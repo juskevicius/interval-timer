@@ -12,8 +12,8 @@ import beep from './assets/beep.mp3';
 import './styles/timerPlayer.css';
 import { secondsToMMSS } from './utils';
 
-const TimeCounter = ({ play, setPlay, remaining }) => (
-  <div className="time-counter">
+const CountdownTimer = ({ play, setPlay, remaining }) => (
+  <div className="countdown-timer">
     <Typography onClick={() => setPlay(!play)} color={remaining > 3 ? 'textPrimary' : '#ea7e31'} variant="body1">
       {secondsToMMSS(remaining)}
     </Typography>
@@ -104,6 +104,7 @@ export function TimerPlayer({ setPage, timers, activeTimerIndex }) {
 
   return (
     <div className="timer-player-container">
+      {/* Timer name and navigation buttons*/}
       <div className="top-bar">
         <IconButton onClick={() => setPage('timers-list')}>
           <FormatListBulletedIcon color="primary" />
@@ -117,7 +118,8 @@ export function TimerPlayer({ setPage, timers, activeTimerIndex }) {
       </div>
 
       <div className="content">
-        {isHorizontal && <TimeCounter play={play} setPlay={setPlay} remaining={remaining} />}
+        {/* Countdown timer (in horizontal view) : */}
+        {isHorizontal && <CountdownTimer play={play} setPlay={setPlay} remaining={remaining} />}
 
         <div className={`interval-names-and-controls ${isHorizontal ? 'inc-horizontal' : 'inc-vertical'}`}>
           {/* Interval count and current interval name: */}
@@ -132,9 +134,10 @@ export function TimerPlayer({ setPage, timers, activeTimerIndex }) {
             {activeInterval.name}
           </Typography>
 
+          {/* Countdown timer (in vertical view): */}
           {!isHorizontal && (
             <div>
-              <TimeCounter play={play} setPlay={setPlay} remaining={remaining} />
+              <CountdownTimer play={play} setPlay={setPlay} remaining={remaining} />
             </div>
           )}
 

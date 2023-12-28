@@ -25,7 +25,7 @@
 }
 
 .timer-editor-container .workout-name > .MuiButtonBase-root:last-child {
-  width: 90px;
+  margin: 0 12px;
 }
 
 .timer-editor-container .workout-name > .MuiButtonBase-root:last-child > .MuiSvgIcon-root {

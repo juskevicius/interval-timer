@@ -42,7 +42,7 @@
   justify-content: space-around;
 }
 
-.timer-player-container .content .time-counter > .MuiTypography-root {
+.timer-player-container .content .countdown-timer > .MuiTypography-root {
   text-align: center;
   font-size: 22vw;
   line-height: 1;

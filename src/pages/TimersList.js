@@ -40,6 +40,7 @@ export function TimersList({ setPage, timers, setTimers, setActiveTimerIndex }) 
     <div className="timers-list-container">
       {timers.map((timer, index) => (
         <Card key={index} variant="outlined">
+          {/* Timer name and navigation to player button: */}
           <CardContent onClick={() => useTimer(index)}>
             <Typography variant="body1" color="textPrimary">
               {timer.name}
@@ -48,6 +49,8 @@ export function TimersList({ setPage, timers, setTimers, setActiveTimerIndex }) 
               <PlayArrowIcon color="primary" />
             </IconButton>
           </CardContent>
+
+          {/* Timer total duration and edit/delete buttons: */}
           <CardActions>
             <Typography variant="body1" color="textPrimary">
               {calculateTotalDuration(timer.intervals)}
@@ -63,6 +66,8 @@ export function TimersList({ setPage, timers, setTimers, setActiveTimerIndex }) 
           </CardActions>
         </Card>
       ))}
+
+      {/* Add new timer button: */}
       <div className="add-new-timer">
         <IconButton onClick={addNewTimer}>
           <AddCircleIcon color="primary" />

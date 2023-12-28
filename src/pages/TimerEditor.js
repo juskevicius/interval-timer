@@ -21,10 +21,7 @@ export function TimerEditor({ setPage, timers, setTimers, activeTimerIndex }) {
     return () =>
       setTimers((prevTimers) =>
         produce(prevTimers, (draftTimers) => {
-          draftTimers[activeTimerIndex].intervals = draftTimers[activeTimerIndex].intervals.map((interval) => ({
-            ...interval,
-            isChecked: false,
-          }));
+          draftTimers[activeTimerIndex].intervals.forEach((interval) => delete interval.isChecked);
         })
       );
   }, []);
@@ -110,6 +107,7 @@ export function TimerEditor({ setPage, timers, setTimers, activeTimerIndex }) {
   return (
     <div className="timer-editor-container">
       <div className="workout-name">
+        {/* Workout name and navigation buttons: */}
         <IconButton onClick={() => setPage('timers-list')}>
           <FormatListBulletedIcon color="primary" />
         </IconButton>
@@ -122,8 +120,10 @@ export function TimerEditor({ setPage, timers, setTimers, activeTimerIndex }) {
           <PlayArrowIcon color="primary" />
         </IconButton>
       </div>
+
       {activeTimer?.intervals.map((interval, index) => (
         <div key={index} className="interval">
+          {/* Interval checkbox, name and duration: */}
           <Checkbox
             checked={interval.isChecked || false}
             onChange={(event) => changeIntervalSelection(event, index)}
@@ -142,7 +142,9 @@ export function TimerEditor({ setPage, timers, setTimers, activeTimerIndex }) {
           />
         </div>
       ))}
+
       <div ref={bottomRef} className="bottom-controls">
+        {/* Add, copy and delete interval buttons: */}
         <IconButton onClick={addNewInterval}>
           <AddCircleIcon color="primary" />
         </IconButton>
