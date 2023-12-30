@@ -22,15 +22,17 @@ const CountdownTimer = ({ play, setPlay, remaining }) => (
 
 const isApple = /iPad|iPhone|iPod/.test(navigator.userAgent);
 function useWindowSize() {
-  const [size, setSize] = useState([0, 0]);
+  const [size, setSize] = useState([window.innerWidth, window.innerHeight]);
   useLayoutEffect(() => {
     function updateSize() {
-      const width = isApple ? screen.width : window.innerWidth;
-      const height = isApple ? screen.height : window.innerHeight;
-      setSize([width, height]);
+      setTimeout(
+        () => {
+          setSize([window.innerWidth, window.innerHeight]);
+        },
+        isApple ? 100 : 0 // iphone bug
+      );
     }
     window.addEventListener('resize', updateSize);
-    updateSize();
     return () => window.removeEventListener('resize', updateSize);
   }, []);
   return size;
@@ -145,7 +147,7 @@ export function TimerPlayer({ setPage, timers, activeTimerIndex }) {
           )}
 
           {/* Controls - next, play/pause, previous: */}
-          <div>
+          <div className="controls">
             <IconButton onClick={() => skip(-1)}>
               <SkipPreviousIcon color="primary" />
             </IconButton>

@@ -66,6 +66,7 @@
   flex-direction: column;
   justify-content: space-around;
   height: 80%;
+  width: 100%;
 }
 
 .timer-player-container .content .interval-names-and-controls > .MuiTypography-root:first-child > .interval-counter {
@@ -77,9 +78,13 @@
   font-weight: bold;
 }
 
-.timer-player-container .content .interval-names-and-controls > .MuiTypography-root,
-.timer-player-container .content .interval-names-and-controls > div {
-  flex: 1 1 0;
+.timer-player-container .content .interval-names-and-controls > .MuiTypography-root {
+  flex: 2 1 0;
+}
+
+.timer-player-container .content .interval-names-and-controls > .controls {
+  flex: 3 1 0;
+  width: 100%;
 }
 
 .timer-player-container .content .interval-names-and-controls > .interval-horizontal {
@@ -88,7 +93,7 @@
   text-overflow: ellipsis;
 }
 
-.timer-player-container .content .interval-names-and-controls > div > .MuiButtonBase-root > .MuiSvgIcon-root {
+.timer-player-container .content .interval-names-and-controls > .controls > .MuiButtonBase-root > .MuiSvgIcon-root {
   font-size: 46px;
 }
 
