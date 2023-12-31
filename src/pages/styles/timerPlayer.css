@@ -49,8 +49,8 @@
 }
 
 .timer-player-container .content .interval-names-and-controls {
-  width: 90%;
-  display: flex;
+  width: 100%;
+  display: inline-flex;
   align-items: center;
   text-align: center;
   flex-wrap: nowrap;
@@ -65,7 +65,8 @@
 .timer-player-container .content .inc-vertical {
   flex-direction: column;
   justify-content: space-around;
-  height: 80%;
+  align-items: stretch;
+  height: 60%;
   width: 100%;
 }
 
@@ -78,13 +79,14 @@
   font-weight: bold;
 }
 
-.timer-player-container .content .interval-names-and-controls > .MuiTypography-root {
+.timer-player-container .content .inc-horizontal > .MuiTypography-root {
   flex: 2 1 0;
 }
 
-.timer-player-container .content .interval-names-and-controls > .controls {
-  flex: 3 1 0;
-  width: 100%;
+.timer-player-container .content .inc-horizontal > .controls {
+  flex: 1 1 0;
+  display: flex;
+  justify-content: center;
 }
 
 .timer-player-container .content .interval-names-and-controls > .interval-horizontal {

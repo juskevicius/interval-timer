@@ -74,7 +74,7 @@ export function TimerPlayer({ setPage, timers, activeTimerIndex }) {
         const newDuration = activeTimer.intervals[newActiveIntervalIndex].duration;
         timer = setInterval(() => {
           setActiveIntervalIndex(newActiveIntervalIndex);
-          setRemaining(newDuration);
+          setRemaining(newDuration - 1);
         }, 1000);
       }
     }
@@ -136,7 +136,7 @@ export function TimerPlayer({ setPage, timers, activeTimerIndex }) {
                 </Typography>
               </div>
             )}
-            {activeInterval.name}
+            {activeInterval.name.toUpperCase()}
           </Typography>
 
           {/* Countdown timer (in vertical view): */}
@@ -161,7 +161,7 @@ export function TimerPlayer({ setPage, timers, activeTimerIndex }) {
 
           {/* Next interval name: */}
           <Typography variant="h4" color="textPrimary" className={isHorizontal ? 'interval-horizontal' : ''}>
-            next: {nextInterval?.name || '---'}
+            next: {nextInterval?.name.toUpperCase() || '---'}
           </Typography>
         </div>
       </div>
