@@ -8,40 +8,47 @@ import CardContent from '@mui/material/CardContent';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import './styles/timersList.css';
-import { calculateTotalDuration } from './utils';
+import { calculateTotalDuration, sortByName } from './utils';
 
-export function TimersList({ setPage, timers, setTimers, setActiveTimerIndex }) {
-  const useTimer = (index) => {
-    setActiveTimerIndex(index);
+export function TimersList({ setPage, timers, setTimers, setActiveTimer }) {
+  const useTimer = (timer) => {
+    setActiveTimer(timer);
     setPage('timer-player');
   };
 
-  const editTimer = (index) => {
-    setActiveTimerIndex(index);
+  const editTimer = (timer) => {
+    setActiveTimer(timer);
     setPage('timer-editor');
   };
 
-  const deleteTimer = (index) => {
-    setTimers(timers.filter((_timer, idx) => index !== idx));
+  const deleteTimer = (timerToDelete) => {
+    setTimers(timers.filter((timer) => timer.id !== timerToDelete.id));
   };
 
   const addNewTimer = () => {
     const newTimer = {
+      id: crypto.randomUUID(),
       name: '',
-      intervals: [{}],
+      intervals: [
+        {
+          name: 'Prepare',
+          duration: 3,
+          nonEditable: true
+        },
+      ],
     };
     const updatedTimers = [...timers, newTimer];
     setTimers(updatedTimers);
-    setActiveTimerIndex(updatedTimers.length - 1);
+    setActiveTimer(newTimer);
     setPage('timer-editor');
   };
 
   return (
     <div className="timers-list-container">
-      {timers.map((timer, index) => (
-        <Card key={index} variant="outlined">
+      {[...timers].sort(sortByName).map((timer) => (
+        <Card key={timer.id} variant="outlined">
           {/* Timer name and navigation to player button: */}
-          <CardContent onClick={() => useTimer(index)}>
+          <CardContent onClick={() => useTimer(timer)}>
             <Typography variant="body1" color="textPrimary">
               {timer.name}
             </Typography>
@@ -56,11 +63,11 @@ export function TimersList({ setPage, timers, setTimers, setActiveTimerIndex }) 
               {calculateTotalDuration(timer.intervals)}
             </Typography>
             <span>
-              <IconButton onClick={() => editTimer(index)}>
+              <IconButton onClick={() => editTimer(timer)}>
                 <EditIcon fontSize="large" color="primary" />
               </IconButton>
             </span>
-            <IconButton onClick={() => deleteTimer(index)}>
+            <IconButton onClick={() => deleteTimer(timer)}>
               <DeleteIcon fontSize="large" color="primary" />
             </IconButton>
           </CardActions>

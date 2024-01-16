@@ -7,56 +7,75 @@ import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
 import { TimeField } from '@mui/x-date-pickers/TimeField';
-import { produce } from 'immer';
 import { DateTime } from 'luxon';
 import { useEffect, useRef } from 'react';
 import './styles/timerEditor.css';
 
-export function TimerEditor({ setPage, timers, setTimers, activeTimerIndex }) {
+export function TimerEditor({ setPage, timers, setTimers, activeTimer, setActiveTimer }) {
   const bottomRef = useRef();
-  const activeTimer = timers[activeTimerIndex];
   const checkedCount = activeTimer?.intervals.filter((interval) => interval.isChecked).length;
 
   useEffect(() => {
-    return () =>
-      setTimers((prevTimers) =>
-        produce(prevTimers, (draftTimers) => {
-          draftTimers[activeTimerIndex].intervals.forEach((interval) => delete interval.isChecked);
+    return () => {
+      setTimers(
+        timers.map((timer) => {
+          if (timer.id === activeTimer.id) {
+            return {
+              ...activeTimer,
+              intervals: activeTimer.intervals.map((interval) => {
+                const { isChecked, ...rest } = interval;
+                return rest;
+              }),
+            };
+          }
+          return timer;
         })
       );
-  }, []);
+    };
+  }, [activeTimer]);
 
   const changeWorkoutName = (event) => {
-    setTimers(
-      produce(timers, (draftTimers) => {
-        draftTimers[activeTimerIndex].name = event.target.value;
-      })
-    );
+    setActiveTimer({
+      ...activeTimer,
+      name: event.target.value,
+    });
   };
 
   const changeIntervalSelection = (event, index) => {
-    setTimers(
-      produce(timers, (draftTimers) => {
-        draftTimers[activeTimerIndex].intervals[index].isChecked = event.target.checked;
-      })
-    );
+    setActiveTimer({
+      ...activeTimer,
+      intervals: activeTimer.intervals.map((interval, idx) => {
+        if (idx === index) {
+          interval.isChecked = event.target.checked;
+        }
+        return interval;
+      }),
+    });
   };
 
   const changeIntervalName = (event, index) => {
-    setTimers(
-      produce(timers, (draftTimers) => {
-        draftTimers[activeTimerIndex].intervals[index].name = event.target.value;
-      })
-    );
+    setActiveTimer({
+      ...activeTimer,
+      intervals: activeTimer.intervals.map((interval, idx) => {
+        if (idx === index) {
+          interval.name = event.target.value;
+        }
+        return interval;
+      }),
+    });
   };
 
   const changeIntervalDuration = (luxonDuration, index) => {
-    setTimers(
-      produce(timers, (draftTimers) => {
-        const durationInSeconds = luxonDuration.minute * 60 + luxonDuration.second;
-        draftTimers[activeTimerIndex].intervals[index].duration = durationInSeconds;
-      })
-    );
+    const durationInSeconds = luxonDuration.minute * 60 + luxonDuration.second;
+    setActiveTimer({
+      ...activeTimer,
+      intervals: activeTimer.intervals.map((interval, idx) => {
+        if (idx === index) {
+          interval.duration = durationInSeconds;
+        }
+        return interval;
+      }),
+    });
   };
 
   const scrollToBottom = () => {
@@ -71,37 +90,32 @@ export function TimerEditor({ setPage, timers, setTimers, activeTimerIndex }) {
   };
 
   const addNewInterval = () => {
-    setTimers(
-      produce(timers, (draftTimers) => {
-        draftTimers[activeTimerIndex].intervals.push({});
-      })
-    );
+    setActiveTimer({
+      ...activeTimer,
+      intervals: [...activeTimer.intervals, {}],
+    });
     scrollToBottom();
   };
 
   const copyIntervals = () => {
-    setTimers(
-      produce(timers, (draftTimers) => {
-        const intervalsToCopy = draftTimers[activeTimerIndex].intervals
-          .filter((i) => i.isChecked)
-          .map((i) => ({
-            ...i,
-            isChecked: false,
-          }));
-        draftTimers[activeTimerIndex].intervals.push(...intervalsToCopy);
-      })
-    );
+    const intervalsToCopy = activeTimer.intervals
+      .filter((i) => i.isChecked)
+      .map((i) => ({
+        ...i,
+        isChecked: false,
+      }));
+    setActiveTimer({
+      ...activeTimer,
+      intervals: [...activeTimer.intervals, ...intervalsToCopy],
+    });
     scrollToBottom();
   };
 
   const deleteIntervals = () => {
-    setTimers(
-      produce(timers, (draftTimers) => {
-        draftTimers[activeTimerIndex].intervals = draftTimers[activeTimerIndex].intervals.filter(
-          (interval) => !interval.isChecked
-        );
-      })
-    );
+    setActiveTimer({
+      ...activeTimer,
+      intervals: activeTimer.intervals.filter((interval) => !interval.isChecked),
+    });
   };
 
   return (
@@ -121,27 +135,30 @@ export function TimerEditor({ setPage, timers, setTimers, activeTimerIndex }) {
         </IconButton>
       </div>
 
-      {activeTimer?.intervals.map((interval, index) => (
-        <div key={index} className="interval">
-          {/* Interval checkbox, name and duration: */}
-          <Checkbox
-            checked={interval.isChecked || false}
-            onChange={(event) => changeIntervalSelection(event, index)}
-            size="large"
-          />
-          <Input
-            value={interval.name || ''}
-            onChange={(event) => changeIntervalName(event, index)}
-            placeholder="exercise name"
-          />
-          <TimeField
-            value={DateTime.fromMillis((interval.duration || 0) * 1000)}
-            onChange={(newValue) => changeIntervalDuration(newValue, index)}
-            label="duration"
-            format="mm:ss"
-          />
-        </div>
-      ))}
+      {activeTimer?.intervals.map(
+        (interval, index) =>
+          !interval.nonEditable && (
+            <div key={index} className="interval">
+              {/* Interval checkbox, name and duration: */}
+              <Checkbox
+                checked={interval.isChecked || false}
+                onChange={(event) => changeIntervalSelection(event, index)}
+                size="large"
+              />
+              <Input
+                value={interval.name || ''}
+                onChange={(event) => changeIntervalName(event, index)}
+                placeholder="exercise name"
+              />
+              <TimeField
+                value={DateTime.fromMillis((interval.duration || 0) * 1000)}
+                onChange={(newValue) => changeIntervalDuration(newValue, index)}
+                label="duration"
+                format="mm:ss"
+              />
+            </div>
+          )
+      )}
 
       <div ref={bottomRef} className="bottom-controls">
         {/* Add, copy and delete interval buttons: */}

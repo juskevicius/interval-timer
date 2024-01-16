@@ -38,8 +38,7 @@ function useWindowSize() {
   return size;
 }
 
-export function TimerPlayer({ setPage, timers, activeTimerIndex }) {
-  const activeTimer = timers[activeTimerIndex];
+export function TimerPlayer({ setPage, activeTimer }) {
   const [play, setPlay] = useState(false);
   const [activeIntervalIndex, setActiveIntervalIndex] = useState(0);
   const [remaining, setRemaining] = useState(activeTimer.intervals[0].duration || 0);
@@ -132,7 +131,7 @@ export function TimerPlayer({ setPage, timers, activeTimerIndex }) {
             {isHorizontal && (
               <div className="interval-counter">
                 <Typography variant="h4" color="textPrimary">
-                  {`${activeIntervalIndex + 1}/${activeTimer.intervals.length}`}
+                  {`${activeIntervalIndex}/${activeTimer.intervals.length - 1}`}
                 </Typography>
               </div>
             )}
